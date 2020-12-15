@@ -1,7 +1,12 @@
+import { Component } from 'react';
 import './App.css';
 
-function App() {
-  return <div className="App"></div>;
+import Searchbar from './components/Searchbar';
+
+class App extends Component {
+  render() {
+    return <Searchbar />;
+  }
 }
 
 export default App;
