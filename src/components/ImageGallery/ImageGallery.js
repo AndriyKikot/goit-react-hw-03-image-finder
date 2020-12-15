@@ -15,12 +15,6 @@ const ImageGallery = ({ images }) => {
       ))}
     </ul>
   );
-
-  //  { loading && <div>Loading...</div> }
-  // { !this.props.imgTitle && <div>Enter image title</div> }
-  // { imgTitle && <ImageGalleryItem /> }
-
-  // const { imgTitle, loading } = this.state;
 };
 
 export default ImageGallery;

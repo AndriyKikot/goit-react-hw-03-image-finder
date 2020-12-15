@@ -1,7 +1,7 @@
 import { Component } from 'react';
-import axios from 'axios';
 import { ToastContainer } from 'react-toastify';
-// import pixabayApi from './services/pixabayApi';
+
+import pixabayApi from './services/pixabayApi';
 
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,15 +9,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
 import Button from './components/Button';
-
-const API_KEY = '18773042-c85a376c8239f0d185771db9c';
-const baseUrl = 'https://pixabay.com/api/';
+import Loader from './components/Loader/Loader';
 
 class App extends Component {
   state = {
     query: '',
     images: [],
-    loading: false,
+    isLoading: false,
     page: 1,
     pageSize: 12,
   };
@@ -34,28 +32,28 @@ class App extends Component {
 
   fetchImages = () => {
     const { page, query, pageSize } = this.state;
-    // const options = { page, query, pageSize };
+    const options = { page, query, pageSize };
 
-    axios
-      .get(
-        `${baseUrl}?q=${query}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=${pageSize}`,
-      )
+    this.setState({ isLoading: true });
 
-      .then(response => {
+    pixabayApi(options)
+      .then(images => {
         this.setState(prevState => ({
-          images: [...prevState.images, ...response.data.hits],
+          images: [...prevState.images, ...images],
           page: prevState.page + 1,
         }));
-      });
+      })
+      .finally(() => this.setState({ isLoading: false }));
   };
 
   render() {
-    const { images } = this.state;
+    const { images, isLoading } = this.state;
     return (
       <>
         <Searchbar onSubmit={this.handleFormSubmit} />
         <ImageGallery images={images} />
-        <Button onClickHandler={this.fetchImages} />
+        {images.length > 0 && <Button onClickHandler={this.fetchImages} />}
+        {isLoading && <Loader />}
         <ToastContainer autoClose={3000} />
       </>
     );
