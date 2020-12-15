@@ -3,7 +3,7 @@ import s from './Button.module.css';
 
 const Button = ({ onClickHandler }) => {
   return (
-    <button type="button" className={s.Button} onClick={() => onClickHandler()}>
+    <button type="button" className={s.Button} onClick={onClickHandler}>
       Load more
     </button>
   );
