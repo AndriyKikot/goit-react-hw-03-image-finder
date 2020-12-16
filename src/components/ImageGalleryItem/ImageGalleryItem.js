@@ -1,14 +1,14 @@
 // import PropTypres from 'prop-types';
 import s from './ImageGalleryItem.module.css';
 
-const ImageGalleryItem = ({ id, imageSrc, imageUrl }) => {
+const ImageGalleryItem = ({ webformatURL, tags = '', onClickImage }) => {
   return (
-    <li key={id} className={s.ImageGalleryItem}>
+    <li className={s.ImageGalleryItem}>
       <img
-        src={imageSrc}
-        alt=""
-        data-url={imageUrl}
+        src={webformatURL}
+        alt={tags}
         className={s.ImageGalleryItem__image}
+        onClick={onClickImage}
       />
     </li>
   );
