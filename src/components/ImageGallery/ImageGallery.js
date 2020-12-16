@@ -2,7 +2,7 @@
 import s from './ImageGallery.module.css';
 import ImageGalleryItem from '../ImageGalleryItem';
 
-const ImageGallery = ({ images, onClickImage }) => {
+const ImageGallery = ({ images, onsetImgData, onOpenModal }) => {
   if (images.length === 0) return null;
   return (
     <ul className={s.ImageGallery}>
@@ -10,8 +10,10 @@ const ImageGallery = ({ images, onClickImage }) => {
         <ImageGalleryItem
           key={id}
           webformatURL={webformatURL}
+          largeImageURL={largeImageURL}
           tags={tags}
-          onClickImage={() => onClickImage(largeImageURL)}
+          onsetImgData={onsetImgData}
+          onOpenModal={onOpenModal}
         />
       ))}
     </ul>

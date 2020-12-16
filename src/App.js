@@ -43,10 +43,14 @@ class App extends Component {
 
     pixabayApi(options)
       .then(images => {
-        this.setState(prevState => ({
-          images: [...prevState.images, ...images],
-          page: prevState.page + 1,
-        }));
+        if (images.length < 1) {
+          this.setState({ error: true });
+        } else {
+          this.setState(prevState => ({
+            images: [...prevState.images, ...images],
+            page: prevState.page + 1,
+          }));
+        }
         if (page !== 1) {
           this.scrollToButtom();
         }
@@ -68,26 +72,38 @@ class App extends Component {
     }));
   };
 
-  onClickImage = largeImageURL => {
-    this.setState({ largeImageURL: largeImageURL });
-    this.toggleModal();
+  setImgData = ({ largeImageURL, tags }) => {
+    this.setState({ largeImageURL, tags });
   };
 
   render() {
-    const { images, isLoading, error, showModal, largeImageURL } = this.state;
+    const {
+      images,
+      isLoading,
+      error,
+      showModal,
+      largeImageURL,
+      imgTags,
+    } = this.state;
     const shouldRenderLoadMoreBtn = images.length > 0 && !isLoading;
 
     return (
       <div>
         <Searchbar onSubmit={this.handleFormSubmit} />
-        {error && <h2>Ooops</h2>}
-        <ImageGallery images={images} onClickImage={this.onClickImage} />
+        {error && <p className="text-error">404</p>}
+        <ImageGallery
+          images={images}
+          onOpenModal={this.toggleModal}
+          onsetImgData={this.setImgData}
+        />
         {shouldRenderLoadMoreBtn && (
           <Button onClickHandler={this.fetchImages} />
         )}
         {isLoading && <Loader />}
         {showModal && (
-          <Modal largeImageURL={largeImageURL} toggleModal={this.toggleModal} />
+          <Modal onCloseModal={this.toggleModal}>
+            <img src={largeImageURL} alt={imgTags} />
+          </Modal>
         )}
         <ToastContainer autoClose={3000} />
       </div>
