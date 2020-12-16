@@ -94,7 +94,7 @@ class App extends Component {
         <ImageGallery
           images={images}
           onOpenModal={this.toggleModal}
-          onsetImgData={this.setImgData}
+          onSetImgData={this.setImgData}
         />
         {shouldRenderLoadMoreBtn && (
           <Button onClickHandler={this.fetchImages} />

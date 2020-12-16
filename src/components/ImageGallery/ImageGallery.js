@@ -1,8 +1,8 @@
-// import PropTypres from 'prop-types';
+import PropTypes from 'prop-types';
 import s from './ImageGallery.module.css';
 import ImageGalleryItem from '../ImageGalleryItem';
 
-const ImageGallery = ({ images, onsetImgData, onOpenModal }) => {
+const ImageGallery = ({ images, onSetImgData, onOpenModal }) => {
   if (images.length === 0) return null;
   return (
     <ul className={s.ImageGallery}>
@@ -12,12 +12,18 @@ const ImageGallery = ({ images, onsetImgData, onOpenModal }) => {
           webformatURL={webformatURL}
           largeImageURL={largeImageURL}
           tags={tags}
-          onsetImgData={onsetImgData}
+          onSetImgData={onSetImgData}
           onOpenModal={onOpenModal}
         />
       ))}
     </ul>
   );
+};
+
+ImageGallery.propTypes = {
+  images: PropTypes.array.isRequired,
+  onOpenModal: PropTypes.func.isRequired,
+  onSetImgData: PropTypes.func.isRequired,
 };
 
 export default ImageGallery;

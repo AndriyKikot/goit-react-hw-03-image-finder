@@ -1,11 +1,11 @@
-// import PropTypres from 'prop-types';
+import PropTypes from 'prop-types';
 import s from './ImageGalleryItem.module.css';
 
 const ImageGalleryItem = ({
   webformatURL,
   largeImageURL,
   tags = '',
-  onsetImgData,
+  onSetImgData,
   onOpenModal,
 }) => {
   return (
@@ -15,12 +15,20 @@ const ImageGalleryItem = ({
         alt={tags}
         className={s.ImageGalleryItem__image}
         onClick={() => {
-          onsetImgData({ largeImageURL, tags });
+          onSetImgData({ largeImageURL, tags });
           onOpenModal();
         }}
       />
     </li>
   );
+};
+
+ImageGalleryItem.propTypes = {
+  webformatURL: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  tags: PropTypes.string,
+  onSetImgData: PropTypes.func.isRequired,
+  onOpenModal: PropTypes.func.isRequired,
 };
 
 export default ImageGalleryItem;
