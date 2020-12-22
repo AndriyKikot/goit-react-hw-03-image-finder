@@ -14,16 +14,20 @@ import Modal from './components/Modal';
 
 class App extends Component {
   state = {
-    query: '',
+    query: 'new year',
     images: [],
     isLoading: false,
     page: 1,
-    pageSize: 12,
+    pageSize: 15,
     error: null,
     showModal: false,
     largeImageURL: '',
     imgTags: null,
   };
+
+  componentDidMount() {
+    this.fetchImages();
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.query !== this.state.query) {
@@ -32,6 +36,10 @@ class App extends Component {
   }
 
   handleFormSubmit = query => {
+    if (this.state.query === query) {
+      return;
+    }
+
     this.setState({ query: query, page: 1, images: [], error: null });
   };
 

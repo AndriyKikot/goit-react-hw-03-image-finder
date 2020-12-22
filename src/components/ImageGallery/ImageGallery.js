@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import s from './ImageGallery.module.css';
-import ImageGalleryItem from '../ImageGalleryItem';
+import ImageGalleryItem from './ImageGalleryItem';
 
 const ImageGallery = ({ images, onSetImgData, onOpenModal }) => {
   if (images.length === 0) return null;
